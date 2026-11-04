@@ -1,0 +1,1751 @@
+<!DOCTYPE html>
+<html lang="es" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luz de Luna | Creaciones artesanales en crochet que guardan recuerdos</title>
+<meta name="description" content="Luz de Luna transforma recuerdos, emociones e historias en creaciones artesanales tejidas 100% a mano a crochet. Piezas personalizadas hechas con amor y dedicación.">
+<meta name="author" content="Luz de Luna">
+<meta name="theme-color" content="#241333">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="Logo.png">
+<style>
+  /* ==========================================================================
+     LUZ DE LUNA — Diseño completo en un solo archivo
+     HTML + CSS + JavaScript
+     ========================================================================== */
+
+  /* ---------- Reset y base ---------- */
+  :root {
+    --morado-oscuro: #241333;
+    --morado-profundo: #35204A;
+    --morado: #68458A;
+    --lavanda: #A98BC7;
+    --lila: #D8C5E8;
+    --negro: #111014;
+    --blanco-calido: #F8F5FA;
+    --texto: #241333;
+    --texto-suave: #5b4a70;
+    --max-ancho: 1200px;
+    --radio: 16px;
+    --sombra: 0 10px 30px -10px rgba(36, 19, 51, 0.18);
+    --sombra-suave: 0 6px 20px -8px rgba(36, 19, 51, 0.12);
+    --transicion: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--blanco-calido);
+    color: var(--texto);
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body.no-scroll {
+    overflow: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Playfair Display', serif;
+    line-height: 1.25;
+    font-weight: 700;
+  }
+
+  h1 { font-size: clamp(2.2rem, 5vw, 4rem); }
+  h2 { font-size: clamp(1.9rem, 4vw, 3rem); }
+  h3 { font-size: clamp(1.4rem, 3vw, 2rem); }
+  h4 { font-size: clamp(1.1rem, 2vw, 1.5rem); }
+
+  p { margin: 0 0 1rem; }
+
+  a { color: inherit; text-decoration: none; }
+
+  ul, ol { list-style: none; }
+
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .container {
+    max-width: var(--max-ancho);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    width: 100%;
+  }
+
+  /* ---------- Fondos decorativos (luna y estrellas) ---------- */
+  .celestial {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+  }
+
+  .moon {
+    position: absolute;
+    width: clamp(300px, 45vw, 700px);
+    height: clamp(300px, 45vw, 700px);
+    background: radial-gradient(circle at 30% 30%, #68458A, transparent 70%);
+    border-radius: 50%;
+    opacity: 0.10;
+    filter: blur(40px);
+    top: -20%;
+    left: -10%;
+    z-index: -1;
+  }
+
+  .moon::after {
+    content: '';
+    position: absolute;
+    width: 70%;
+    height: 70%;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    top: 15%;
+    left: 15%;
+    filter: blur(8px);
+  }
+
+  .star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    opacity: 0.7;
+    animation: twinkle var(--dur) ease-in-out infinite;
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+
+  /* ---------- Utilidades ---------- */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+
+  .section {
+    padding: clamp(4rem, 8vw, 8rem) 0;
+    position: relative;
+  }
+
+  .section-dark {
+    background: var(--morado-oscuro);
+    color: var(--blanco-calido);
+  }
+
+  .section-dark h1,
+  .section-dark h2,
+  .section-dark h3,
+  .section-dark h4 {
+    color: var(--blanco-calido);
+  }
+
+  .section-dark p {
+    color: rgba(248, 245, 250, 0.85);
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--morado);
+    background: rgba(104, 69, 138, 0.10);
+    padding: 0.35rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 1rem;
+  }
+
+  .section-dark .tag {
+    color: var(--lavanda);
+    background: rgba(169, 139, 199, 0.15);
+  }
+
+  .section-title {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 1rem;
+  }
+
+  .section-title h2 {
+    margin-bottom: 0.75rem;
+  }
+
+  .section-desc {
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    color: var(--texto-suave);
+    max-width: 650px;
+    margin: 0 auto 3rem;
+    text-align: center;
+  }
+
+  .section-dark .section-desc {
+    color: rgba(248, 245, 250, 0.8);
+  }
+
+  /* ---------- Botones ---------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.9rem 1.75rem;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    transition: var(--transicion);
+    text-align: center;
+    line-height: 1;
+  }
+
+  .btn-primary {
+    background: var(--morado);
+    color: #fff;
+    box-shadow: 0 8px 20px -8px rgba(104, 69, 138, 0.45);
+  }
+
+  .btn-primary:hover {
+    background: var(--morado-profundo);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px -10px rgba(104, 69, 138, 0.55);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--morado);
+    border: 2px solid var(--morado);
+  }
+
+  .btn-secondary:hover {
+    background: var(--morado);
+    color: #fff;
+  }
+
+  .btn-outline-dark {
+    background: transparent;
+    color: var(--blanco-calido);
+    border: 2px solid rgba(248, 245, 250, 0.4);
+  }
+
+  .btn-outline-dark:hover {
+    border-color: #fff;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+
+  /* ---------- Header ---------- */
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: var(--transicion);
+    background: transparent;
+  }
+
+  header.scrolled {
+    background: rgba(248, 245, 250, 0.95);
+    box-shadow: 0 4px 20px -6px rgba(0, 0, 0, 0.12);
+  }
+
+  header.scrolled .logo img {
+    filter: grayscale(0%);
+  }
+
+  header.scrolled .nav-link {
+    color: var(--texto);
+  }
+
+  header.scrolled .nav-link:hover,
+  header.scrolled .nav-link.active {
+    color: var(--morado);
+  }
+
+  .nav-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+    padding: 0 1.5rem;
+    max-width: var(--max-ancho);
+    margin: 0 auto;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    z-index: 1001;
+  }
+
+  .logo img {
+    height: 44px;
+    width: auto;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+    transition: var(--transicion);
+    object-fit: contain;
+  }
+
+  .nav-menu {
+    display: flex;
+    gap: 2.2rem;
+    align-items: center;
+  }
+
+  .nav-link {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--blanco-calido);
+    transition: var(--transicion);
+    position: relative;
+  }
+
+  .nav-link:hover {
+    color: var(--lavanda);
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--lavanda);
+    transition: var(--transicion);
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  .btn-nav {
+    background: var(--morado);
+    color: #fff !important;
+    padding: 0.6rem 1.25rem !important;
+    border-radius: 50px;
+    font-size: 0.85rem;
+  }
+
+  .btn-nav::after {
+    display: none;
+  }
+
+  .btn-nav:hover {
+    background: var(--morado-profundo);
+    color: #fff;
+  }
+
+  /* Menú hamburguesa */
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1002;
+    padding: 0.4rem;
+  }
+
+  .menu-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--blanco-calido);
+    border-radius: 2px;
+    transition: var(--transicion);
+  }
+
+  header.scrolled .menu-toggle span {
+    background: var(--texto);
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 1.5rem;
+    background: radial-gradient(circle at 50% 30%, #35204A 0%, #241333 70%);
+    overflow: hidden;
+    color: var(--blanco-calido);
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(36,19,51,0.55) 0%, rgba(36,19,51,0.85) 100%);
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    margin: 0 auto;
+    padding-top: 2rem;
+    animation: fadeUp 1s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero .tag {
+    color: var(--lavanda);
+    background: rgba(169, 139, 199, 0.18);
+  }
+
+  .hero h1 {
+    color: #fff;
+    margin: 1rem 0 1.25rem;
+    letter-spacing: -0.5px;
+  }
+
+  .hero p {
+    font-size: clamp(1rem, 1.5vw, 1.15rem);
+    color: rgba(248, 245, 250, 0.9);
+    margin-bottom: 2rem;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-visual {
+    position: relative;
+    z-index: 2;
+    margin-top: 4rem;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: floatImg 6s ease-in-out infinite;
+  }
+
+  @keyframes floatImg {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-14px); }
+  }
+
+  .hero-visual img {
+    width: 100%;
+    border-radius: var(--radio);
+    box-shadow: var(--sombra);
+    object-fit: contain;
+    background: var(--blanco-calido);
+    padding: 0.5rem;
+  }
+
+  /* ---------- Esencia ---------- */
+  .essence {
+    background: var(--blanco-calido);
+  }
+
+  .essence-text h2 {
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+  }
+
+  .essence-text h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: var(--morado);
+    border-radius: 2px;
+  }
+
+  .essence-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .essence-card {
+    background: #fff;
+    padding: 2.5rem 1.75rem;
+    border-radius: var(--radio);
+    box-shadow: var(--sombra-suave);
+    text-align: center;
+    border: 1px solid rgba(104, 69, 138, 0.08);
+    transition: var(--transicion);
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .essence-card.reveal {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .essence-icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 1.25rem;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--lavanda), var(--lila));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    color: #fff;
+  }
+
+  .essence-card h3 {
+    margin-bottom: 0.6rem;
+  }
+
+  .essence-card p {
+    font-size: 0.95rem;
+    color: var(--texto-suave);
+  }
+
+  /* ---------- Catálogo ---------- */
+  .catalogo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .product-card {
+    background: #fff;
+    border-radius: var(--radio);
+    overflow: hidden;
+    box-shadow: var(--sombra-suave);
+    border: 1px solid rgba(104, 69, 138, 0.06);
+    transition: var(--transicion);
+    opacity: 0;
+    transform: translateY(24px);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .product-card.reveal {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--sombra);
+    border-color: rgba(104, 69, 138, 0.18);
+  }
+
+  .product-image {
+    height: 320px;
+    width: 100%;
+    background: var(--lila);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transicion);
+  }
+
+  .product-card:hover .product-image img {
+    transform: scale(1.04);
+  }
+
+  .product-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--morado-profundo);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.35rem 0.85rem;
+    border-radius: 100px;
+    box-shadow: var(--sombra-suave);
+    letter-spacing: 0.05em;
+  }
+
+  .product-info {
+    padding: 1.5rem 1.25rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .product-info h3 {
+    font-size: 1.25rem;
+    color: var(--morado-profundo);
+    margin-bottom: 0.25rem;
+  }
+
+  .product-info p {
+    font-size: 0.92rem;
+    color: var(--texto-suave);
+    margin-bottom: 0;
+  }
+
+  .product-btn {
+    margin-top: auto;
+    background: transparent;
+    color: var(--morado);
+    border: 2px solid var(--morado);
+    font-weight: 600;
+    padding: 0.75rem 1.25rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: var(--transicion);
+    font-size: 0.9rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  .product-btn:hover {
+    background: var(--morado);
+    color: #fff;
+  }
+
+  .cta-galeria {
+    text-align: center;
+    margin-top: 4rem;
+  }
+
+  /* ---------- Personalización ---------- */
+  .personalizacion {
+    background: var(--morado-oscuro);
+  }
+
+  .personalizacion .container {
+    max-width: 700px;
+  }
+
+  .personalizacion h2 {
+    color: #fff;
+    text-align: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .personalizacion .section-desc {
+    color: rgba(248, 245, 250, 0.8);
+    margin-bottom: 2.5rem;
+  }
+
+  .form-personalizacion {
+    background: #fff;
+    padding: 3rem 2.5rem;
+    border-radius: var(--radio);
+    box-shadow: var(--sombra);
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .form-group label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--texto);
+    font-family: 'Inter', sans-serif;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 2px solid rgba(104, 69, 138, 0.18);
+    border-radius: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    color: var(--texto);
+    transition: var(--transicion);
+    background: #fff;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--morado);
+    box-shadow: 0 0 0 4px rgba(104, 69, 138, 0.12);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+    grid-column: 1 / -1;
+  }
+
+  .error-msg {
+    color: #c0392b;
+    font-size: 0.8rem;
+    height: 1em;
+  }
+
+  .confirmacion {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+    background: #f0f7ee;
+    border-radius: var(--radio);
+    margin-top: 1rem;
+    color: #2e7d32;
+  }
+
+  .confirmacion.show {
+    display: block;
+    animation: fadeIn 0.6s ease both;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---------- Proceso ---------- */
+  .proceso-linea {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    margin-top: 3rem;
+    position: relative;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .proceso-linea::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--lavanda), transparent);
+    transform: translateX(-50%);
+    opacity: 0.5;
+  }
+
+  .proceso-item {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: all 0.8s ease;
+  }
+
+  .proceso-item:nth-child(even) {
+    transform: translateX(30px);
+    text-align: right;
+    grid-template-columns: 1fr 80px;
+  }
+
+  .proceso-item.reveal {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .numero {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--morado);
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 8px 16px -8px rgba(104, 69, 138, 0.5);
+  }
+
+  .proceso-item:nth-child(even) .numero {
+    margin-left: auto;
+  }
+
+  .proceso-contenido h4 {
+    margin-bottom: 0.5rem;
+  }
+
+  .proceso-contenido p {
+    font-size: 0.95rem;
+    color: var(--texto-suave);
+  }
+
+  /* ---------- Sobre nosotros ---------- */
+  .sobre-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .sobre-card {
+    background: var(--blanco-calido);
+    padding: 2.5rem 2rem;
+    border-radius: var(--radio);
+    box-shadow: var(--sombra-suave);
+    border: 1px solid rgba(104, 69, 138, 0.06);
+    transition: var(--transicion);
+  }
+
+  .sobre-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--sombra);
+  }
+
+  .sobre-card h4 {
+    margin-bottom: 0.75rem;
+    color: var(--morado-profundo);
+  }
+
+  .sobre-card p {
+    font-size: 0.95rem;
+    color: var(--texto-suave);
+    margin-bottom: 0;
+  }
+
+  .impacto {
+    background: #fff;
+    padding: 3rem 2rem;
+    border-radius: var(--radio);
+    margin-top: 2rem;
+    border-left: 4px solid var(--morado);
+  }
+
+  .impacto h4 {
+    color: var(--morado-profundo);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .impacto ul {
+    list-style: disc inside;
+    color: var(--texto-suave);
+    font-size: 0.95rem;
+  }
+
+  .impacto li {
+    margin-bottom: 0.5rem;
+  }
+
+  .logro {
+    text-align: center;
+    padding: 3rem 2rem;
+    border-radius: var(--radio);
+    background: linear-gradient(135deg, var(--morado-profundo), var(--morado-oscuro));
+    color: #fff;
+    margin-top: 3rem;
+    box-shadow: var(--sombra);
+  }
+
+  .logro-icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+  }
+
+  .logro h4 {
+    color: #fff;
+    margin-bottom: 1rem;
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+  }
+
+  .logro p {
+    color: rgba(248, 245, 250, 0.95);
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.8;
+  }
+
+  /* ---------- CTA final ---------- */
+  .cta-final {
+    background: linear-gradient(135deg, var(--morado-oscuro) 0%, var(--morado-profundo) 100%);
+    text-align: center;
+    color: #fff;
+    padding: clamp(5rem, 10vw, 8rem) 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-final h2 {
+    color: #fff;
+    margin-bottom: 1rem;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+  }
+
+  .cta-final p {
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    color: rgba(248, 245, 250, 0.9);
+    max-width: 650px;
+    margin: 0 auto 2.5rem;
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    background: var(--negro);
+    color: rgba(248, 245, 250, 0.85);
+    padding: clamp(4rem, 8vw, 6rem) 0 2rem;
+    border-top: 1px solid rgba(248, 245, 250, 0.08);
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+    align-items: start;
+  }
+
+  .footer-brand .logo {
+    justify-content: center;
+  }
+
+  .footer-brand .logo img {
+    height: 48px;
+    filter: none;
+  }
+
+  .footer-brand h3 {
+    color: #fff;
+    font-size: 1.5rem;
+    margin: 1rem 0 0.5rem;
+  }
+
+  .footer-brand p {
+    font-size: 0.95rem;
+    color: var(--lavanda);
+    max-width: 280px;
+    margin: 0 auto;
+  }
+
+  .footer-nav h4 {
+    color: #fff;
+    margin-bottom: 1.25rem;
+    font-size: 1.05rem;
+  }
+
+  .footer-nav ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .footer-nav a {
+    color: rgba(248, 245, 250, 0.7);
+    font-size: 0.95rem;
+    transition: var(--transicion);
+  }
+
+  .footer-nav a:hover {
+    color: var(--lavanda);
+    padding-left: 4px;
+  }
+
+  .footer-contacto {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .footer-contacto a {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    transition: var(--transicion);
+    font-size: 1.25rem;
+  }
+
+  .footer-contacto a:hover {
+    background: var(--morado);
+    color: #fff;
+  }
+
+  .footer-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    border-top: 1px solid rgba(248, 245, 250, 0.08);
+    padding-top: 2rem;
+    color: rgba(248, 245, 250, 0.5);
+    font-size: 0.85rem;
+  }
+
+  /* ---------- Botón flotante WhatsApp ---------- */
+  .whatsapp-float {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 56px;
+    height: 56px;
+    background: #25D366;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    box-shadow: 0 6px 20px -6px rgba(37, 211, 102, 0.45);
+    z-index: 900;
+    transition: var(--transicion);
+    text-decoration: none;
+  }
+
+  .whatsapp-float:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 24px -8px rgba(37, 211, 102, 0.55);
+  }
+
+  .whatsapp-float::after {
+    content: attr(data-label);
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    background: var(--negro);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transicion);
+    pointer-events: none;
+  }
+
+  .whatsapp-float:hover::after {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* ---------- Reveal al scroll ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.9s ease;
+  }
+
+  .reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+    .reveal {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px) {
+    .nav-menu {
+      position: fixed;
+      inset: 0 0 0 60%;
+      background: var(--blanco-calido);
+      flex-direction: column;
+      padding: 5rem 2rem 2rem;
+      gap: 1.5rem;
+      transform: translateX(100%);
+      transition: transform 0.4s ease;
+      box-shadow: var(--sombra);
+      border-bottom: 1px solid rgba(104, 69, 138, 0.1);
+    }
+
+    .nav-menu.open {
+      transform: translateX(0);
+    }
+
+    .nav-link {
+      color: var(--texto);
+      font-size: 1.1rem;
+    }
+
+    header.scrolled .nav-link {
+      color: var(--texto);
+    }
+
+    .btn-nav {
+      background: var(--morado);
+      color: #fff !important;
+      width: fit-content;
+    }
+
+    .menu-toggle {
+      display: flex;
+    }
+
+    body.no-scroll {
+      overflow: hidden;
+    }
+
+    .footer-top {
+      grid-template-columns: 1fr;
+    }
+
+    .proceso-item,
+    .proceso-item:nth-child(even) {
+      grid-template-columns: 70px 1fr;
+      text-align: left;
+      transform: translateX(0);
+    }
+
+    .proceso-item:nth-child(even) .numero {
+      margin-left: 0;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .hero-content {
+      padding-top: 1rem;
+    }
+    .product-image {
+      height: 260px;
+    }
+    .form-personalizacion {
+      padding: 2rem 1.5rem;
+    }
+    .whatsapp-float {
+      bottom: 1.5rem;
+      right: 1.5rem;
+      width: 50px;
+      height: 50px;
+      font-size: 1.4rem;
+    }
+  }
+</style>
+</head>
+<body class="no-js">
+
+  <div class="celestial">
+    <div class="moon"></div>
+    <div class="star" style="--dur: 4s; top: 10%; left: 12%; width: 2px; height: 2px;"></div>
+    <div class="star" style="--dur: 6s; top: 18%; left: 88%; width: 3px; height: 3px;"></div>
+    <div class="star" style="--dur: 5s; top: 34%; left: 5%; width: 2px; height: 2px;"></div>
+    <div class="star" style="--dur: 7s; top: 42%; left: 92%; width: 3px; height: 3px;"></div>
+    <div class="star" style="--dur: 4.5s; top: 60%; left: 20%; width: 2px; height: 2px;"></div>
+    <div class="star" style="--dur: 6.5s; top: 72%; left: 78%; width: 3px; height: 3px;"></div>
+    <div class="star" style="--dur: 5.5s; top: 84%; left: 10%; width: 2px; height: 2px;"></div>
+    <div class="star" style="--dur: 8s; top: 12%; left: 50%; width: 2px; height: 2px;"></div>
+  </div>
+
+  <!-- ===================== HEADER ===================== -->
+  <header id="header">
+    <div class="nav-wrapper">
+      <a href="#" class="logo" aria-label="Luz de Luna - Inicio">
+        <img src="Logo.png" alt="Logo Luz de Luna">
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="nav-menu" id="navMenu">
+        <a href="#inicio" class="nav-link">Inicio</a>
+        <a href="#catalogo" class="nav-link">Catálogo</a>
+        <a href="#personalizacion" class="nav-link">Personalización</a>
+        <a href="#proceso" class="nav-link">Nuestro proceso</a>
+        <a href="#sobre" class="nav-link">Sobre nosotros</a>
+        <a href="#contacto" class="nav-link btn btn-primary btn-nav">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===================== HERO ===================== -->
+  <section id="inicio" class="hero" aria-label="Inicio">
+    <div class="hero-bg">
+      <img src="fondo.jpg" alt="Fondo inicio Luz de Luna">
+    </div>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content reveal">
+      <span class="tag">Artesanía en crochet · Hecho a mano</span>
+      <h1>Recuerdos e historias hechos a mano en crochet</h1>
+      <p>Piezas artesanales personalizadas diseñadas para transformar tus momentos, emociones y vínculos en recuerdos tangibles.</p>
+
+      <div class="btn-group">
+        <a href="#catalogo" class="btn btn-primary">Explorar catálogo</a>
+        <a href="#personalizacion" class="btn btn-secondary">Crear un recuerdo único</a>
+      </div>
+
+      <div class="hero-visual">
+        <img src="pinguinos.avif" alt="Pinguinos Luz de Luna">
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ESENCIA ===================== -->
+  <section id="esencia" class="section essence">
+    <div class="container">
+      <div class="section-title reveal">
+        <h2>Luz de Luna no crea solamente tejidos,<br>crea recuerdos que puedes abrazar</h2>
+      </div>
+      <p class="section-desc reveal" style="transition-delay: 0.15s;">
+        Cada pieza nace de una historia personal. Nuestro objetivo es convertir sentimientos, recuerdos y vínculos en objetos físicos que acompañen a las personas, transformando emociones en creaciones artesanales que perduran en el tiempo.
+      </p>
+
+      <div class="essence-grid">
+        <div class="essence-card reveal" style="transition-delay: 0.25s;">
+          <div class="essence-icon" aria-hidden="true">✦</div>
+          <h3>Unicidad y autenticidad</h3>
+          <p>No existen dos piezas iguales. Cada creación tiene su propia esencia, tejida punto a punto con intención.</p>
+        </div>
+        <div class="essence-card reveal" style="transition-delay: 0.35s;">
+          <div class="essence-icon" aria-hidden="true">♡</div>
+          <h3>Empatía y cercanía</h3>
+          <p>Escuchamos tu historia antes de comenzar a tejer. Tu relato guía cada detalle de la pieza.</p>
+        </div>
+        <div class="essence-card reveal" style="transition-delay: 0.45s;">
+          <div class="essence-icon" aria-hidden="true">✚</div>
+          <h3>Calidad y detalle</h3>
+          <p>Valoramos el trabajo artesanal frente a la producción masiva. Cuidado, tiempo y dedicación en cada punto.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CATÁLOGO ===================== -->
+  <section id="catalogo" class="section">
+    <div class="container">
+      <div class="section-title reveal">
+        <h2>Pequeñas creaciones,<br>grandes historias</h2>
+      </div>
+      <p class="section-desc reveal" style="transition-delay: 0.15s;">
+        Descubre nuestras creaciones tejidas a mano, cada una con su propia personalidad.
+      </p>
+
+      <div class="catalogo-grid">
+        <!-- Capybara -->
+        <article class="product-card reveal" style="transition-delay: 0.1s;">
+          <div class="product-image">
+            <span class="product-badge">Amigurumi</span>
+            <img src="capybara.jpg" alt="Capybara tejido a crochet">
+          </div>
+          <div class="product-info">
+            <h3>Capybara</h3>
+            <p>Un pequeño compañero tejido a mano, lleno de ternura y personalidad.</p>
+            <button class="product-btn" onclick="seleccionarProducto('Capybara')">Quiero este diseño</button>
+          </div>
+        </article>
+
+        <!-- Oso -->
+        <article class="product-card reveal" style="transition-delay: 0.2s;">
+          <div class="product-image">
+            <span class="product-badge">Amigurumi</span>
+            <img src="oso.jpg" alt="Oso tejido a crochet">
+          </div>
+          <div class="product-info">
+            <h3>Oso</h3>
+            <p>Un compañero especial elaborado punto a punto para regalar o conservar.</p>
+            <button class="product-btn" onclick="seleccionarProducto('Oso')">Quiero este diseño</button>
+          </div>
+        </article>
+
+        <!-- Rana -->
+        <article class="product-card reveal" style="transition-delay: 0.3s;">
+          <div class="product-image">
+            <span class="product-badge">Amigurumi</span>
+            <img src="rana.png" alt="Rana tejida a crochet">
+          </div>
+          <div class="product-info">
+            <h3>Rana</h3>
+            <p>Una creación artesanal llena de encanto y detalles únicos.</p>
+            <button class="product-btn" onclick="seleccionarProducto('Rana')">Quiero este diseño</button>
+          </div>
+        </article>
+
+        <!-- Hongo -->
+        <article class="product-card reveal" style="transition-delay: 0.45s;">
+          <div class="product-image">
+            <span class="product-badge">Amigurumi</span>
+            <img src="Hongo.jpg" alt="Hongo tejido a crochet">
+          </div>
+          <div class="product-info">
+            <h3>Hongo</h3>
+            <p>Una creación artesanal llena de encanto y detalles únicos.</p>
+            <button class="product-btn" onclick="seleccionarProducto('Hongo')">Quiero este diseño</button>
+          </div>
+        </article>
+
+        <!-- Zorro -->
+        <article class="product-card reveal" style="transition-delay: 0.4s;">
+          <div class="product-image">
+            <span class="product-badge">Amigurumi</span>
+            <img src="zorro.jpg" alt="Zorro tejido a crochet">
+          </div>
+          <div class="product-info">
+            <h3>Zorro</h3>
+            <p>Un diseño tejido a mano que combina creatividad, personalidad y delicadeza.</p>
+            <button class="product-btn" onclick="seleccionarProducto('Zorro')">Quiero este diseño</button>
+          </div>
+        </article>
+
+        <!-- Vaca -->
+        <article class="product-card reveal" style="transition-delay: 0.5s;">
+          <div class="product-image">
+            <span class="product-badge">Amigurumi</span>
+            <img src="vaca.jpg" alt="Vaca tejida a crochet">
+          </div>
+          <div class="product-info">
+            <h3>Vaca</h3>
+            <p>Un amigurumi artesanal creado con dedicación y mucho cariño.</p>
+            <button class="product-btn" onclick="seleccionarProducto('Vaca')">Quiero este diseño</button>
+          </div>
+        </article>
+      </div>
+
+      <div class="cta-galeria reveal" style="transition-delay: 0.6s;">
+        <a href="#personalizacion" class="btn btn-outline-dark">¿Tienes otra idea? Personaliza tu creación</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PERSONALIZACIÓN ===================== -->
+  <section id="personalizacion" class="section section-dark personalizacion">
+    <div class="container">
+      <div class="section-title reveal" style="text-align: left; margin-left: 0; max-width: none;">
+        <h2>Una historia, una idea,<br>una creación única</h2>
+      </div>
+      <p class="section-desc reveal" style="text-align: left; margin-left: 0; margin-right: 0; max-width: none; transition-delay: 0.15s;">
+        Hay recuerdos que merecen convertirse en algo tangible. Cuéntanos tu historia y juntos transformaremos tu idea en una pieza especial tejida a mano.
+      </p>
+
+      <form id="formPersonalizacion" class="form-personalizacion reveal" style="transition-delay: 0.3s;" novalidate>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="nombre">Nombre <span style="color:#c0392b;">*</span></label>
+            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+            <span class="error-msg" id="errNombre"></span>
+          </div>
+          <div class="form-group">
+            <label for="email">Correo electrónico <span style="color:#c0392b;">*</span></label>
+            <input type="email" id="email" name="email" placeholder="tu@correo.com" required>
+            <span class="error-msg" id="errEmail"></span>
+          </div>
+          <div class="form-group">
+            <label for="producto">Tipo de producto que deseas</label>
+            <select id="producto" name="producto">
+              <option value="">Selecciona una opción</option>
+              <option value="Capybara">Capybara (amigurumi)</option>
+              <option value="Oso">Oso (amigurumi)</option>
+              <option value="Rana">Rana (amigurumi)</option>
+              <option value="Zorro">Zorro (amigurumi)</option>
+              <option value="Vaca">Vaca (amigurumi)</option>
+              <option value="otro">Otra idea / diseño personalizado</option>
+            </select>
+            <span class="error-msg" id="errProducto"></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="historia">Descripción de tu idea o historia <span style="color:#c0392b;">*</span></label>
+          <textarea id="historia" name="historia" placeholder="¿Qué recuerdas? ¿A quién quieres homenajear? ¿Qué emoción deseas conservar?" required></textarea>
+          <span class="error-msg" id="errHistoria"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="colores">Colores preferidos</label>
+          <input type="text" id="colores" name="colores" placeholder="Ej: lavanda, morado, blanco cálido">
+          <span class="error-msg" id="errColores"></span>
+        </div>
+
+        <div class="form-group" style="grid-column: 1 / -1; display: flex; justify-content: center;">
+          <button type="submit" class="btn btn-primary" id="btnEnviar">Enviar mi idea</button>
+        </div>
+
+        <div class="confirmacion" id="confirmacion">
+          <strong style="font-size:1.1rem;">¡Gracias por compartir tu historia!</strong>
+          <p style="margin-top:0.5rem; font-size:0.95rem;">Hemos recibido tu idea. Nos pondremos en contacto contigo pronto para darle forma a tu recuerdo.</p>
+          <p style="margin-top:0.75rem; font-size:0.85rem; opacity:0.8;">Nota: este formulario está listo para conectarse con WhatsApp o un servicio de envío de mensajes.</p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===================== NUESTRO PROCESO ===================== -->
+  <section id="proceso" class="section">
+    <div class="container">
+      <div class="section-title reveal">
+        <h2>Cada historia merece su<br>propio proceso</h2>
+      </div>
+
+      <div class="proceso-linea">
+        <div class="proceso-item reveal">
+          <div class="numero">1</div>
+          <div class="proceso-contenido">
+            <h4>Escuchamos tu historia</h4>
+            <p>Cuéntanos qué deseas transmitir o a quién quieres homenajear. Cada detalle cuenta.</p>
+          </div>
+        </div>
+        <div class="proceso-item reveal">
+          <div class="numero">2</div>
+          <div class="proceso-contenido">
+            <h4>Diseño y selección</h4>
+            <p>Definimos detalles, colores y acabados en comunicación contigo, punto a punto.</p>
+          </div>
+        </div>
+        <div class="proceso-item reveal">
+          <div class="numero">3</div>
+          <div class="proceso-contenido">
+            <h4>Tejido punto a punto</h4>
+            <p>Elaboramos tu pieza a mano con tiempo, técnica, cuidado y mucha dedicación.</p>
+          </div>
+        </div>
+        <div class="proceso-item reveal">
+          <div class="numero">4</div>
+          <div class="proceso-contenido">
+            <h4>Entrega con propósito</h4>
+            <p>Tu recuerdo está listo para acompañarte y perdurar en el tiempo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SOBRE NOSOTROS ===================== -->
+  <section id="sobre" class="section essence">
+    <div class="container">
+      <div class="section-title reveal">
+        <h2>Detrás de cada hilo,<br>hay una historia</h2>
+      </div>
+
+      <div class="reveal" style="transition-delay: 0.2s;">
+        <h3 style="font-size: 1.4rem; margin-bottom: 0.75rem;">Nuestra misión</h3>
+        <p style="font-size: 1.05rem; color: var(--texto-suave); max-width: 700px;">
+          Transformar recuerdos e historias personales en objetos significativos que acompañen, reconforten y preserven la conexión emocional. Creemos que el tejido artesanal es una forma de cuidar lo que más importa.
+        </p>
+      </div>
+
+      <div class="sobre-grid">
+        <div class="sobre-card reveal" style="transition-delay: 0.3s;">
+          <h4>Impacto social</h4>
+          <ul style="list-style: disc inside; color: var(--texto-suave); font-size: 0.95rem; margin-top: 0.5rem;">
+            <li>Generación de empleo digno e inclusivo.</li>
+            <li>Apoyo al talento local.</li>
+            <li>Participación y oportunidades para madres cabeza de hogar.</li>
+          </ul>
+        </div>
+        <div class="sobre-card reveal" style="transition-delay: 0.4s;">
+          <h4>Sostenibilidad ambiental</h4>
+          <ul style="list-style: disc inside; color: var(--texto-suave); font-size: 0.95rem; margin-top: 0.5rem;">
+            <li>Empaques biodegradables, como bolsas de yuca.</li>
+            <li>Optimización de insumos de lana.</li>
+            <li>Aprovechamiento responsable de materiales mediante un modelo circular.</li>
+            <li>Envíos sostenibles.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="impacto reveal" style="transition-delay: 0.5s;">
+        <div class="logro">
+          <span class="logro-icon">★</span>
+          <h4 style="font-size: 1.5rem; margin-bottom: 1rem;">Nuestro mayor logro</h4>
+          <p style="font-size: 1.1rem; max-width: 700px; margin: 0 auto;">
+            Cada pedido apoya este propósito: transformar recuerdos en creaciones que perduran, cuidando a las personas y al planeta con cada punto tejido a mano.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CTA FINAL ===================== -->
+  <section id="cta" class="cta-final">
+    <div class="container">
+      <div class="reveal">
+        <h2>Hay recuerdos que merecen ser eternos</h2>
+        <p>Permítenos convertir esa historia especial en una creación hecha con amor, dedicación y cada punto de nuestras manos.</p>
+        <div class="btn-group">
+          <a href="#personalizacion" class="btn btn-secondary" style="border-color: rgba(248,245,250,0.4); color: #fff;">Transforma tu historia en crochet</a>
+          <a href="#personalizacion" class="btn btn-primary">Personaliza tu pedido aquí</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer id="contacto">
+    <div class="container">
+      <div class="footer-top reveal">
+        <div class="footer-brand">
+          <div class="logo">
+            <img src="Logo.png" alt="Logo Luz de Luna">
+          </div>
+          <h3>Luz de Luna</h3>
+          <p>"Lo que las manos crean, el corazón lo recuerda"</p>
+        </div>
+
+        <div class="footer-nav">
+          <h4>Navegación rápida</h4>
+          <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#catalogo">Catálogo</a></li>
+            <li><a href="#personalizacion">Personalización</a></li>
+            <li><a href="#proceso">Nuestro proceso</a></li>
+            <li><a href="#sobre">Sobre nosotros</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-contacto reveal" style="transition-delay: 0.2s;">
+        <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram">◌</a>
+        <a href="https://wa.me" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp">✦</a>
+      </div>
+
+      <div class="footer-bottom reveal" style="transition-delay: 0.3s;">
+        <p>Hecho a mano, creado desde el corazón.</p>
+        <p>&copy; <span id="anio"></span> Luz de Luna. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================== JAVASCRIPT ===================== -->
+  <script>
+    (function() {
+      'use strict';
+
+      // Año actual en el footer
+      document.getElementById('anio').textContent = new Date().getFullYear();
+
+      // Header al hacer scroll
+      const header = document.getElementById('header');
+      let lastScroll = 0;
+      window.addEventListener('scroll', function() {
+        const currentScroll = window.pageYOffset;
+        if (currentScroll > 60) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+        lastScroll = currentScroll;
+      });
+
+      // Menú móvil
+      const menuToggle = document.getElementById('menuToggle');
+      const navMenu = document.getElementById('navMenu');
+      const body = document.body;
+
+      menuToggle.addEventListener('click', function() {
+        const isOpen = navMenu.classList.toggle('open');
+        menuToggle.setAttribute('aria-expanded', isOpen);
+        if (isOpen) body.classList.add('no-scroll'); else body.classList.remove('no-scroll');
+      });
+
+      // Cerrar menú al hacer clic en un enlace
+      document.querySelectorAll('.nav-link').forEach(function(link) {
+        link.addEventListener('click', function() {
+          navMenu.classList.remove('open');
+          menuToggle.setAttribute('aria-expanded', 'false');
+          body.classList.remove('no-scroll');
+        });
+      });
+
+      // Botones con desplazamiento suave a secciones
+      document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+        anchor.addEventListener('click', function(e) {
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            e.preventDefault();
+            window.scrollTo({ top: target.offsetTop - 70, behavior: 'smooth' });
+          }
+        });
+      });
+
+      // Seleccionar producto del catálogo → lleva al formulario con preselección
+      window.seleccionarProducto = function(nombre) {
+        const select = document.getElementById('producto');
+        if (select) {
+          for (let i = 0; i < select.options.length; i++) {
+            if (select.options[i].value === nombre) {
+              select.selectedIndex = i;
+              break;
+            }
+          }
+        }
+        const seccion = document.getElementById('personalizacion');
+        if (seccion) {
+          window.scrollTo({ top: seccion.offsetTop - 70, behavior: 'smooth' });
+          setTimeout(function() {
+            const textarea = document.getElementById('historia');
+            if (textarea) textarea.focus();
+          }, 600);
+        }
+      };
+
+      // Animaciones de revelado al scroll (Intersection Observer)
+      const observerOptions = { threshold: 0.12, rootMargin: '0px 0px -60px 0px' };
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.reveal').forEach(function(el) {
+        observer.observe(el);
+      });
+
+      // Formulario de personalización (validación real, sin simulación de envío)
+      const form = document.getElementById('formPersonalizacion');
+      const confirmacion = document.getElementById('confirmacion');
+
+      if (form) {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          let valido = true;
+
+          const campos = {
+            nombre: document.getElementById('nombre'),
+            email: document.getElementById('email'),
+            producto: document.getElementById('producto'),
+            historia: document.getElementById('historia')
+          };
+
+          const errores = {
+            nombre: document.getElementById('errNombre'),
+            email: document.getElementById('errEmail'),
+            producto: document.getElementById('errProducto'),
+            historia: document.getElementById('errHistoria')
+          };
+
+          // Limpiar errores previos
+          Object.values(campos).forEach(function(c) { c.classList.remove('error'); });
+          Object.values(errores).forEach(function(e) { e.textContent = ''; });
+
+          if (!campos.nombre.value.trim()) {
+            mostrarError(campos.nombre, errores.nombre, 'Por favor ingresa tu nombre.');
+            valido = false;
+          }
+          if (!campos.email.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(campos.email.value)) {
+            mostrarError(campos.email, errores.email, 'Ingresa un correo válido.');
+            valido = false;
+          }
+          if (!campos.producto.value) {
+            mostrarError(campos.producto, errores.producto, 'Selecciona un tipo de producto.');
+            valido = false;
+          }
+          if (!campos.historia.value.trim()) {
+            mostrarError(campos.historia, errores.historia, 'Cuéntanos tu idea o historia.');
+            valido = false;
+          }
+
+          if (valido) {
+            form.style.display = 'none';
+            confirmacion.classList.add('show');
+
+            // Preparado para conectar WhatsApp o servicio de formulario:
+            // const datos = new FormData(form);
+            // fetch('TU_ENDPOINT_AQUI', { method: 'POST', body: datos })
+            //   .then(...)
+          }
+        });
+
+        function mostrarError(campo, span, mensaje) {
+          campo.classList.add('error');
+          span.textContent = mensaje;
+        }
+      }
+    })();
+  </script>
+</body>
+</html>
